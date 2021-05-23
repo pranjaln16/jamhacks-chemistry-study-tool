@@ -8,9 +8,34 @@
   color: white;
   padding-left: 2rem;
   padding-right:2rem;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  background-color: #EDE7E3;
+}
+
+.main {
+  flex: auto;
+  background-color: #EDE7E3;
+}
+
+.circles {
+  display: flex;
+  flex-direction: row;
 }
 
 .generate-question-btn {
   background-color: aquamarine;
+}
+
+.element-circle {
+  margin: 2em;
+}
+
+.submit {
+  height: fit-content;
 }
 

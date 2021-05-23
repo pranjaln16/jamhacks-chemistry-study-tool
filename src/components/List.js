@@ -1,8 +1,25 @@
 import { useState} from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 
+import AddIcon from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab';
+import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+      width: '100%',
+      maxWidth: 360,
+      backgroundColor: theme.palette.background.paper,
+    },
+  }));
 
     
-const List = () => {
+const OurList = () => {
     const answerKey = [ ["H", "O", "O"],["Cl", "Na"]];
     
     const [elementsSelected, setElementsSelected] = useState([]);
@@ -85,12 +102,16 @@ const List = () => {
     
             // check if elements Selected has only 1 distinct element -> append the index 0
             // else if element has 2 distinct element -> append the index 5
-            debugger
+
             let elementName = ''; 
             if (new Set([...elementsSelected, itemInfo[1]]).size === 1) {
                 elementName = itemInfo[0];
             } else {
-                elementName = itemInfo[5];
+                if (itemInfo[5]){
+                    elementName = itemInfo[5];
+                } else {
+                    elementName = itemInfo[0]
+                }
             }
 
             setCompound(compound + " " + elementName );
@@ -99,7 +120,7 @@ const List = () => {
     }
 
     function checkAnswer(items){
-        debugger
+
         // https://stackoverflow.com/questions/7837456/how-to-compare-arrays-in-javascript
         const array1 = items;
 
@@ -125,24 +146,72 @@ const List = () => {
     return (
         <>
         
-        {menuItems.map((item, index) => (<li key={index} onClick={()=>handleClick(item)} className='list'>{item[0]}</li>
+        <div className='sidenav'>
+
+        <List component="nav">
+
+        {menuItems.map((item, index) => (<ListItem button key={index} onClick={()=>handleClick(item)} 
+        
+        
+        className='list'>
+            
+            <ListItemIcon>
+            <AddIcon />
+          </ListItemIcon>
+
+            <ListItemText primary={item[0]} />
+            
+            </ListItem>
       ))}
+
+
+      </List>
+        </div>
+
+        <div className='main'>
+
+
+            <h2>{message}</h2>
     
-    <h2>{message}</h2>
-    <p>{compound}</p>
     <h1>  {correctness ==='yes' && "Correct!"} </h1>
     <h1>  {correctness ==='no' && "Try again"} </h1>
     <div className='circles'>
 
+
         {elementsSelected.map((element, currIndex) => (
-        <div key={currIndex} className="user">{element}</div>
+            <div className='element-circle'>
+        <Fab key={currIndex} color="primary" >
+            {element}
+        </Fab>
+        </div>
       ))}
 
-    <button className='submit' onClick={()=>checkAnswer(elementsSelected)}>Check Answer</button>
+
     </div>
+
+
+
+    <h3>{compound}</h3>
+    <Button
+        variant="contained"
+        color="secondary"
+        className='submit'
+        startIcon={<Icon>send</Icon>}
+        onClick={()=>checkAnswer(elementsSelected)}
+      >
+        Check Answer
+      </Button>
+        </div>
+
+
+
+
+
+    
+
     </>);
 }
  
 
 
-export default List;
+export default OurList;
