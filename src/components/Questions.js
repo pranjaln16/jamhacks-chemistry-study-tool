@@ -3,11 +3,11 @@ import Button from '@material-ui/core/Button';
 
 const Questions = () => {
 
-    const [questionContent, setQuestionContent] = useState('hydrogen + oxygen');
+    const [questionContent, setQuestionContent] = useState("sodium + chlorine");
 
     function handleClick(){
         console.log("it works!!")
-        setQuestionContent("sodium + chlorine");
+        setQuestionContent('hydrogen + oxygen');
         console.log(questionContent);
     }
 
